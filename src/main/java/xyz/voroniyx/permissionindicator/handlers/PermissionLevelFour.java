@@ -11,10 +11,13 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public class Three implements Permissions{
+public class PermissionLevelFour implements IPermissionsLevelHandler {
     @Override
     public void onAddToOperators(GameProfile profile, CallbackInfo ci, MinecraftServer server) {
-        return;
+        String name = profile.getName();
+        CommandManager commandManager = server.getCommandManager();
+        ServerCommandSource commandSource = server.getCommandSource();
+        commandManager.executeWithPrefix(commandSource, "/team join admin_team " + name);
     }
 
     @Override
@@ -24,13 +27,13 @@ public class Three implements Permissions{
 
     @Override
     public boolean joinServer(ServerPlayerEntity player, MinecraftServer server) {
-        if(player.hasPermissionLevel(3)) {
-            Team adminTeam = server.getScoreboard().getTeam("permission_three_team");
+        if(player.hasPermissionLevel(4)) {
+            Team adminTeam = server.getScoreboard().getTeam("admin_team");
             if(adminTeam != null) {
                 CommandManager commandManager = server.getCommandManager();
                 ServerCommandSource commandSource = server.getCommandSource();
-                commandManager.executeWithPrefix(commandSource, "/team join permission_three_team " + player.getName().getString());
-                player.sendMessage(Text.of("Added you to Third Level Team "));
+                commandManager.executeWithPrefix(commandSource, "/team join admin_team " + player.getName().getString());
+                player.sendMessage(Text.of("Added you to Admin Team"));
 
                 return true;
             }
@@ -41,19 +44,22 @@ public class Three implements Permissions{
 
     @Override
     public void onRemoveFromOperators(GameProfile gameProfile, CallbackInfo callbackInfo, MinecraftServer server) {
-        return;
+        String name = gameProfile.getName();
+        CommandManager commandManager = server.getCommandManager();
+        ServerCommandSource commandSource = server.getCommandSource();
+        commandManager.executeWithPrefix(commandSource, "/team leave " + name);
     }
 
     @Override
     public void doServerStartAction(MinecraftServer server) {
         ServerScoreboard scoreboard = server.getScoreboard();
 
-        Team levelThreeTeam = scoreboard.getTeam("permission_three_team");
-        if(levelThreeTeam == null) {
-            Team newAdminTeam = scoreboard.addTeam("permission_three_team");
-            newAdminTeam.setDisplayName(Text.literal("Level3"));
-            //newAdminTeam.setPrefix(Text.literal("[Level3] "));
-            newAdminTeam.setColor(Formatting.YELLOW);
+        Team adminTeam = scoreboard.getTeam("admin_team");
+        if(adminTeam == null) {
+            Team newAdminTeam = scoreboard.addTeam("admin_team");
+            newAdminTeam.setDisplayName(Text.literal("Admin"));
+            //newAdminTeam.setPrefix(Text.literal("[Admin] "));
+            newAdminTeam.setColor(Formatting.GOLD);
         }
     }
 }

@@ -11,7 +11,7 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-public class Two implements Permissions{
+public class PermissionLevelThree implements IPermissionsLevelHandler {
     @Override
     public void onAddToOperators(GameProfile profile, CallbackInfo ci, MinecraftServer server) {
         return;
@@ -24,13 +24,13 @@ public class Two implements Permissions{
 
     @Override
     public boolean joinServer(ServerPlayerEntity player, MinecraftServer server) {
-        if(player.hasPermissionLevel(2)) {
-            Team secondLevelTeam = server.getScoreboard().getTeam("permission_two_team");
-            if(secondLevelTeam != null) {
+        if(player.hasPermissionLevel(3)) {
+            Team adminTeam = server.getScoreboard().getTeam("permission_three_team");
+            if(adminTeam != null) {
                 CommandManager commandManager = server.getCommandManager();
                 ServerCommandSource commandSource = server.getCommandSource();
-                commandManager.executeWithPrefix(commandSource, "/team join permission_two_team " + player.getName().getString());
-                player.sendMessage(Text.of("Added you to Second Level Team "));
+                commandManager.executeWithPrefix(commandSource, "/team join permission_three_team " + player.getName().getString());
+                player.sendMessage(Text.of("Added you to Third Level Team "));
 
                 return true;
             }
@@ -48,12 +48,12 @@ public class Two implements Permissions{
     public void doServerStartAction(MinecraftServer server) {
         ServerScoreboard scoreboard = server.getScoreboard();
 
-        Team levelThreeTeam = scoreboard.getTeam("permission_two_team");
+        Team levelThreeTeam = scoreboard.getTeam("permission_three_team");
         if(levelThreeTeam == null) {
-            Team newAdminTeam = scoreboard.addTeam("permission_two_team");
-            newAdminTeam.setDisplayName(Text.literal("Level2"));
-            //newAdminTeam.setPrefix(Text.literal("[Level2] "));
-            newAdminTeam.setColor(Formatting.AQUA);
+            Team newAdminTeam = scoreboard.addTeam("permission_three_team");
+            newAdminTeam.setDisplayName(Text.literal("Level3"));
+            //newAdminTeam.setPrefix(Text.literal("[Level3] "));
+            newAdminTeam.setColor(Formatting.YELLOW);
         }
     }
 }

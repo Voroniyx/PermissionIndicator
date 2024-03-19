@@ -12,7 +12,7 @@
   "environment": "*",
   "entrypoints": {
     "server": [
-      "xyz.voroniyx.permissionindicator.server.PermissionIndicator"
+      "xyz.voroniyx.permissionindicator.server.PermissionIndicatorServer"
     ]
   },
   "mixins": [

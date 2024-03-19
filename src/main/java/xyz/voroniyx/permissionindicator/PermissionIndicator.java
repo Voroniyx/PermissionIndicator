@@ -2,7 +2,7 @@ package xyz.voroniyx.permissionindicator;
 
 import net.fabricmc.api.ModInitializer;
 
-public class Permissionindicator implements ModInitializer  {
+public class PermissionIndicator implements ModInitializer  {
     /**
      * Runs the mod initializer.
      */

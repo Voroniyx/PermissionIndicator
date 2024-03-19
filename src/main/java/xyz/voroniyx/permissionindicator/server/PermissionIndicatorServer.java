@@ -9,15 +9,15 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import xyz.voroniyx.permissionindicator.handlers.Op;
-import xyz.voroniyx.permissionindicator.handlers.Three;
-import xyz.voroniyx.permissionindicator.handlers.Two;
+import xyz.voroniyx.permissionindicator.handlers.PermissionLevelFour;
+import xyz.voroniyx.permissionindicator.handlers.PermissionLevelThree;
+import xyz.voroniyx.permissionindicator.handlers.PermissionLevelTwo;
 
-public class PermissionIndicator implements DedicatedServerModInitializer {
+public class PermissionIndicatorServer implements DedicatedServerModInitializer {
     public static final Logger LOGGER = LogManager.getLogger();
-    public Op opHandler = new Op();
-    public Three threeHandler = new Three();
-    public Two twoHandler = new Two();
+    public PermissionLevelFour opHandler = new PermissionLevelFour();
+    public PermissionLevelThree threeHandler = new PermissionLevelThree();
+    public PermissionLevelTwo twoHandler = new PermissionLevelTwo();
 
     @Override
     public void onInitializeServer() {
