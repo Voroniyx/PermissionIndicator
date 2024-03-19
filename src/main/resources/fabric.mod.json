@@ -1,0 +1,26 @@
+{
+  "schemaVersion": 1,
+  "id": "permissionindicator",
+  "version": "${version}",
+  "name": "Permission Indicator",
+  "description": "",
+  "authors": [
+    "Voroniyx"
+  ],
+  "contact": {},
+  "license": "MIT",
+  "environment": "*",
+  "entrypoints": {
+    "server": [
+      "xyz.voroniyx.permissionindicator.server.PermissionIndicator"
+    ]
+  },
+  "mixins": [
+    "permissionindicator.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.15.7",
+    "fabric": "*",
+    "minecraft": "1.20.4"
+  }
+}
